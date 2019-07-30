@@ -22,22 +22,22 @@ const Nav = () => {
           className="justify-content-end"
         >
           <Navbar.Text className="nav-padding-right">
-            <Link className="nav-hover" to="/shop">
+            <Link className="nav-hover" to="/products">
               Shop
             </Link>
           </Navbar.Text>
           <Navbar.Text className="nav-padding-right">
-            <Link className="nav-hover" to="/sign-in">
+            <Link className="nav-hover" to="/signup">
               Sign Up
             </Link>
           </Navbar.Text>
           <Navbar.Text className="nav-padding-right">
-            <Link className="nav-hover" to="/sign-in">
+            <Link className="nav-hover" to="/login">
               Sign In
             </Link>
           </Navbar.Text>
           <Navbar.Brand>
-            <Link className="nav-hover" to="/sign-in">
+            <Link className="nav-hover" to="/cart">
               <img
                 src="https://i.imgur.com/aolKGAl.png"
                 style={{width: 35, marginTop: -7}}
