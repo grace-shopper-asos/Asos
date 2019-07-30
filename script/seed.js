@@ -27,8 +27,7 @@ async function seed() {
     }),
     Products.create({
       title: 'Teressa custom name plate',
-      description:
-        'Sans-serif letter C available in rose gold, yellow gold and sterling silver',
+      description: 'Use name plate as ring or necklace pendant',
       imageUrl: 'claire needs to drop in here',
       price: 99.99
     }),

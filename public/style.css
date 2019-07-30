@@ -109,3 +109,21 @@ form div {
   text-align: center;
   margin-top: 5%;
 }
+
+.uppercase {
+  text-transform: uppercase;
+  margin-top: 10%;
+}
+
+.single-product-margin {
+  margin-top: 5%;
+}
+
+.product-center {
+  text-align: center;
+}
+
+.price {
+  margin-top: 5%;
+  font-size: 20px;
+}
