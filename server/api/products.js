@@ -31,10 +31,10 @@ router.get('/:productId', async (req, res, next) => {
 router.post('/', async (req, res, next) => {
   try {
     const newProduct = await Product.create({
-      // name: req.body.name,
-      // description: req.body.description,
-      // imageUrl: req.body.imageUrl,
-      // price: req.body.price,
+      title: req.body.title,
+      description: req.body.description,
+      imageUrl: req.body.imageUrl,
+      price: req.body.price
     })
 
     res.status(201).json(newProduct)
