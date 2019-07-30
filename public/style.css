@@ -1,5 +1,7 @@
 body {
-  font-family: sans-serif;
+  font-family: 'Source Sans Pro', sans-serif !important;
+  margin: 0;
+  padding: 0;
 }
 
 a {
@@ -18,4 +20,58 @@ nav a {
 form div {
   margin: 1em;
   display: inline-block;
+}
+
+.white-nav {
+  background-color: white;
+  border-bottom: 5px solid #e7f8fc;
+  color: white;
+  margin-top: -10px;
+  height: 100px;
+}
+
+.logo {
+  font-family: 'Megrim', cursive;
+  font-size: 32px;
+  color: black;
+}
+
+.logo:hover {
+  text-decoration: none;
+}
+
+.nav-padding-right {
+  text-transform: uppercase;
+}
+
+.nav-padding-right .nav-hover:hover {
+  text-decoration: none;
+}
+
+.container {
+  margin-top: 100px;
+}
+
+.center-btn {
+  margin-top: 50px;
+  text-align: center;
+}
+
+.button {
+  color: black !important;
+  background-color: white !important;
+  border: 1px solid black !important;
+  text-transform: uppercase;
+}
+
+.title {
+  font-family: 'Megrim', cursive;
+  text-align: center;
+  font-size: 56px;
+}
+
+.carousel-size {
+  padding-top: 50px;
+  width: 80%;
+  margin: 0 auto;
 }
