@@ -1,5 +1,7 @@
 body {
-  font-family: sans-serif;
+  font-family: 'Source Sans Pro', sans-serif !important;
+  margin: 0;
+  padding: 0;
 }
 
 a {
@@ -18,4 +20,34 @@ nav a {
 form div {
   margin: 1em;
   display: inline-block;
+}
+
+.white-nav {
+  background-color: white;
+  border-bottom: 5px solid #e7f8fc;
+  color: white;
+  margin-top: -10px;
+  height: 100px;
+}
+
+.logo {
+  font-family: 'Megrim', cursive;
+  font-size: 32px;
+  color: black;
+}
+
+.logo:hover {
+  text-decoration: none;
+}
+
+.nav-padding-right {
+  text-transform: uppercase;
+}
+
+.nav-padding-right .nav-hover:hover {
+  text-decoration: none;
+}
+
+.container {
+  margin-top: 100px;
 }
