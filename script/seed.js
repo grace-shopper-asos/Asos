@@ -1,7 +1,7 @@
 'use strict'
 
 const db = require('../server/db')
-const {User} = require('../server/db/models')
+const {User, Products, Orders} = require('../server/db/models')
 
 async function seed() {
   await db.sync({force: true})
@@ -12,7 +12,80 @@ async function seed() {
     User.create({email: 'murphy@email.com', password: '123'})
   ])
 
-  console.log(`seeded ${users.length} users`)
+  const products = await Promise.all([
+    Products.create({
+      title: 'Claire custom name plate',
+      description: 'Use name plate as ring or necklace pendant',
+      imageUrl: 'claire needs to drop in here',
+      price: 99.99
+    }),
+    Products.create({
+      title: 'Yulia custom name plate',
+      description: 'Use name plate as ring or necklace pendant',
+      imageUrl: 'claire needs to drop in here',
+      price: 99.99
+    }),
+    Products.create({
+      title: 'Teressa custom name plate',
+      description:
+        'Sans-serif letter C available in rose gold, yellow gold and sterling silver',
+      imageUrl: 'claire needs to drop in here',
+      price: 99.99
+    }),
+    Products.create({
+      title: 'Letter A Earring Stud',
+      description:
+        'Sans-serif letter A available in rose gold, yellow gold, and sterling silver',
+      imageUrl: 'claire needs to drop in here',
+      price: 89.99
+    }),
+    Products.create({
+      title: 'Letter B Earring Stud',
+      description:
+        'Sans-serif letter B available in rose gold, yellow gold and sterling silver',
+      imageUrl: 'claire needs to drop in here',
+      price: 89.99
+    }),
+    Products.create({
+      title: 'Letter C Earring Stud',
+      description:
+        'Sans-serif letter C available in rose gold, yellow gold and sterling silver',
+      imageUrl: 'claire needs to drop in here',
+      price: 89.99
+    }),
+    Products.create({
+      title: 'Letter X Earring Stud',
+      description:
+        'Serif letter X available in rose gold, yellow gold, and sterling silver',
+      imageUrl: 'claire needs to drop in here',
+      price: 89.99
+    }),
+    Products.create({
+      title: 'Letter Y Earring Stud',
+      description:
+        'Serif letter Y available in rose gold, yellow gold and sterling silver',
+      imageUrl: 'claire needs to drop in here',
+      price: 89.99
+    }),
+    Products.create({
+      title: 'Letter Z Earring Stud',
+      description:
+        'Serif letter Z available in rose gold, yellow gold and sterling silver',
+      imageUrl: 'claire needs to drop in here',
+      price: 89.99
+    })
+  ])
+
+  const orders = await Promise.all([
+    Orders.create({productId: 9, userId: '1'}),
+    Orders.create({productId: 3, userId: '2'})
+  ])
+
+  console.log(
+    `seeded ${users.length} users, ${products.length} products, ${
+      orders.length
+    } orders`
+  )
   console.log(`seeded successfully`)
 }
 
