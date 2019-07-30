@@ -96,3 +96,44 @@ form div {
   border: 1px solid black !important;
   text-transform: uppercase;
 }
+
+.form-margin {
+  margin-top: 5%;
+}
+
+.products-image-size {
+  width: 75%;
+}
+
+.center-products {
+  text-align: center;
+  margin-top: 5%;
+}
+
+.uppercase {
+  text-transform: uppercase;
+  margin-top: 10%;
+}
+
+.single-product-margin {
+  margin-top: 5%;
+}
+
+.product-center {
+  text-align: center;
+}
+
+.price {
+  margin-top: 5%;
+  font-size: 20px;
+}
+
+.checkout {
+  text-align: center;
+  margin-top: 5%;
+  font-size: 25px;
+}
+
+.checkout-image {
+  text-align: center;
+}
