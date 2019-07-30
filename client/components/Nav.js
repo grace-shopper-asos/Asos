@@ -23,7 +23,7 @@ const Nav = () => {
         >
           <Navbar.Text className="nav-padding-right">
             <Link className="nav-hover" to="/shop">
-              Shop Now
+              Shop
             </Link>
           </Navbar.Text>
           <Navbar.Text className="nav-padding-right">
