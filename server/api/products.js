@@ -1,11 +1,11 @@
 const router = require('express').Router()
-const {Product} = require('../db/products')
+const {Products} = require('../db/models')
 module.exports = router
 
 //route to serve all products
 router.get('/', async (req, res, next) => {
   try {
-    const products = await Product.findAll()
+    const products = await Products.findAll()
     res.json(products)
   } catch (err) {
     next(err)
@@ -14,7 +14,7 @@ router.get('/', async (req, res, next) => {
 //route to serve single product
 router.get('/:productId', async (req, res, next) => {
   try {
-    const product = await Product.findOne({
+    const product = await Products.findOne({
       where: {
         id: req.params.productId
       }
@@ -30,11 +30,11 @@ router.get('/:productId', async (req, res, next) => {
 //route to add a new product
 router.post('/', async (req, res, next) => {
   try {
-    const newProduct = await Product.create({
-      // name: req.body.name,
-      // description: req.body.description,
-      // imageUrl: req.body.imageUrl,
-      // price: req.body.price,
+    const newProduct = await Products.create({
+      title: req.body.title,
+      description: req.body.description,
+      imageUrl: req.body.imageUrl,
+      price: req.body.price
     })
 
     res.status(201).json(newProduct)
@@ -44,14 +44,14 @@ router.post('/', async (req, res, next) => {
 })
 
 //route to update existing product
-router.put('/:productId', isAdmin, async (req, res, next) => {
+router.put('/:productId', async (req, res, next) => {
   try {
-    const {data: product} = await Product.update(
+    const {data: product} = await Products.update(
       {
-        //   name: req.body.name,
-        //   description: req.body.description,
-        //   imageUrl: req.body.imageUrl,
-        //   price: req.body.price,
+        title: req.body.title,
+        description: req.body.description,
+        imageUrl: req.body.imageUrl,
+        price: req.body.price
       },
       {
         where: {id: req.params.productId},
