@@ -23,9 +23,9 @@ const getSingleProduct = product => ({type: GET_SINGLE_PRODUCT, product})
 export const gotProducts = () => {
   return async function(dispatch) {
     try {
-      const res = await axios.get('/api/products')
-      const listofProducts = res.data
-      dispatch(getProducts(listofProducts))
+      const {data} = await axios.get('/api/products')
+      console.log('made it here!')
+      dispatch(getProducts(data))
     } catch (err) {
       console.log('Something went wrong', err)
     }
@@ -35,7 +35,7 @@ export const gotProducts = () => {
 export const gotOneProduct = id => {
   return async function(dispatch) {
     try {
-      const {data} = await axios.get(`/api/students/${id}`)
+      const {data} = await axios.get(`/api/products/${id}`)
       dispatch(getSingleProduct(data))
     } catch (err) {
       console.log('Something went wrong', err)
@@ -49,7 +49,7 @@ export const gotOneProduct = id => {
 export default function(state = defaultStore, action) {
   switch (action.type) {
     case GET_ALL_PRODUCTS:
-      return action.products
+      return {...state, products: action.products}
     case GET_SINGLE_PRODUCT:
       return action.product
     default:
