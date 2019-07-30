@@ -3,62 +3,43 @@ import {Col, Row, Button} from 'react-bootstrap'
 import {connect} from 'react-redux'
 
 const Cart = () => {
+  const productsInCart = this.props.allproducts
   return (
     <div>
       <div className="title">Your cart</div>
       <Row className="single-product-margin">
-        <Col sm={3} className="product-center">
-          <img
-            className="products-image-size"
-            src="we need to grab the image from the store and map thru it"
-          />
-        </Col>
-        <Col sm={3} className="product-title">
-          <h1>'we need to map through our store and map thru it'</h1>
-        </Col>
-        <Col sm={3} className="price">
-          <h1>'we need to map through our store and map thru it'</h1>
-        </Col>
-        <Col sm={3} className="x">
-          <Button>X</Button>
-        </Col>
+        {productsInCart.map(product => (
+          <div key={product.id}>
+            <Col sm={3} className="product-center">
+              <img className="products-image-size" src={product.imgUrl} />
+            </Col>
+            <Col sm={3} className="product-title">
+              <h1>{product.title}</h1>
+            </Col>
+            <Col sm={3} className="price">
+              <h1>{product.price}</h1>
+            </Col>
+            <Col sm={3} className="x">
+              <Button onClick={() => this.props.removeProduct(product)}>
+                X
+              </Button>
+            </Col>
+          </div>
+        ))}
       </Row>
     </div>
   )
 }
 
-export default Cart
-
-//                     {
-//                         students.map(student => (
-//                         <div key={student.id}>
-//                         <button type="button" onClick={() => this.props.removePerson(student)}>X</button>
-//                         <Link to={`/students/${student.id}`} >
-//                         <tr>
-//                         <td>{student.firstName}</td>
-//                         <td>{student.lastName}</td>
-//                         </tr>
-//                         </Link>
-//                         </div>
-//                         ))
-//                     }
-//                 </tbody>
-//             </table>
-//             <NewStudentForm />
-//             </div>
-//         )
-//     }
-// }
-
-// const mapState = (state) => {
-//   return {
-//       allstudents: state.allstudents
-//   }
-// }
-// const mapDispatch = (dispatch) => {
-//   return {
-//       gotStudents: () => dispatch(gotStudents()),
-//       removePerson: student => dispatch(removePerson(student))
-//   }
-// }
-// export default connect(mapState, mapDispatch)(Cart)
+const mapState = state => {
+  return {
+    allproducts: state.allproducts
+  }
+}
+const mapDispatch = dispatch => {
+  return {
+    getProductsInCart: () => dispatch(getProductsInCart()),
+    removeProduct: product => dispatch(removeProduct(product))
+  }
+}
+export default connect(mapState, mapDispatch)(Cart)
