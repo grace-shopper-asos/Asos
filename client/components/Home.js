@@ -7,6 +7,7 @@ const Home = () => {
       <h3 className="title">3D Printed Jewelry</h3>
       <div className="center-btn">
         <Button className="button">Shop Now</Button>
+        {/* needs handlesubmit + dispatch */}
       </div>
       <div className="carousel-size">
         <Carousel>

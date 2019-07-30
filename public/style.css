@@ -100,3 +100,12 @@ form div {
 .form-margin {
   margin-top: 5%;
 }
+
+.products-image-size {
+  width: 75%;
+}
+
+.center-products {
+  text-align: center;
+  margin-top: 5%;
+}
