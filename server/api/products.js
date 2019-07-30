@@ -44,14 +44,14 @@ router.post('/', async (req, res, next) => {
 })
 
 //route to update existing product
-router.put('/:productId', isAdmin, async (req, res, next) => {
+router.put('/:productId', async (req, res, next) => {
   try {
     const {data: product} = await Product.update(
       {
-        //   name: req.body.name,
-        //   description: req.body.description,
-        //   imageUrl: req.body.imageUrl,
-        //   price: req.body.price,
+        title: req.body.title,
+        description: req.body.description,
+        imageUrl: req.body.imageUrl,
+        price: req.body.price
       },
       {
         where: {id: req.params.productId},
