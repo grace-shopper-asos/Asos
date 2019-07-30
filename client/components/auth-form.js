@@ -7,10 +7,11 @@ import {auth} from '../store'
  * COMPONENT
  */
 const AuthForm = props => {
+  console.log(props)
   const {name, displayName, handleSubmit, error} = props
 
   return (
-    <div>
+    <div className="margin-top">
       <form onSubmit={handleSubmit} name={name}>
         <div>
           <label htmlFor="email">
@@ -25,7 +26,9 @@ const AuthForm = props => {
           <input name="password" type="password" />
         </div>
         <div>
-          <button type="submit">{displayName}</button>
+          <button type="submit" className="button-login">
+            {displayName}
+          </button>
         </div>
         {error && error.response && <div> {error.response.data} </div>}
       </form>

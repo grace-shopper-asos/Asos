@@ -1,11 +1,11 @@
 const router = require('express').Router()
-const {Product} = require('../db/products')
+const {Products} = require('../db/products')
 module.exports = router
 
 //route to serve all products
 router.get('/', async (req, res, next) => {
   try {
-    const products = await Product.findAll()
+    const products = await Products.findAll()
     res.json(products)
   } catch (err) {
     next(err)
@@ -14,7 +14,7 @@ router.get('/', async (req, res, next) => {
 //route to serve single product
 router.get('/:productId', async (req, res, next) => {
   try {
-    const product = await Product.findOne({
+    const product = await Products.findOne({
       where: {
         id: req.params.productId
       }
@@ -30,7 +30,7 @@ router.get('/:productId', async (req, res, next) => {
 //route to add a new product
 router.post('/', async (req, res, next) => {
   try {
-    const newProduct = await Product.create({
+    const newProduct = await Products.create({
       title: req.body.title,
       description: req.body.description,
       imageUrl: req.body.imageUrl,
@@ -46,7 +46,7 @@ router.post('/', async (req, res, next) => {
 //route to update existing product
 router.put('/:productId', async (req, res, next) => {
   try {
-    const {data: product} = await Product.update(
+    const {data: product} = await Products.update(
       {
         title: req.body.title,
         description: req.body.description,

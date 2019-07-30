@@ -48,12 +48,8 @@ router.delete('/:userId', async (req, res, next) => {
 router.post('/', async (req, res, next) => {
   try {
     const newUser = await User.create({
-      // firstName: req.body.firstName,
-      // lastName: req.body.lastName,
-      // email: req.body.email,
-      // phone: req.body.phone,
-      // password: req.body.password
-      //not finished yet, awaiting for db User model
+      email: req.body.email,
+      password: req.body.password
     })
 
     res.status(201).json(newUser)
@@ -67,11 +63,8 @@ router.put('/:userId', async (req, res, next) => {
   try {
     const {data: user} = await User.update(
       {
-        // firstName: req.body.firstName,
-        // lastName: req.body.lastName,
-        // email: req.body.email,
-        // phone: req.body.phone,
-        // password: req.body.password
+        email: req.body.email,
+        password: req.body.password
       },
       {
         where: {id: req.params.userId},
