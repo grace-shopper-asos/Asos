@@ -96,3 +96,7 @@ form div {
   border: 1px solid black !important;
   text-transform: uppercase;
 }
+
+.form-margin {
+  margin-top: 5%;
+}

@@ -12,7 +12,8 @@ const AuthForm = props => {
 
   return (
     <div className="margin-top">
-      <form onSubmit={handleSubmit} name={name}>
+      <div className="title">Please Signup/Sign in!</div>
+      <form onSubmit={handleSubmit} name={name} className="form-margin">
         <div>
           <label htmlFor="email">
             <small>Email</small>
