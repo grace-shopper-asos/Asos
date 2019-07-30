@@ -4,48 +4,46 @@ const {expect} = require('chai')
 const request = require('supertest')
 const db = require('../db')
 const app = require('../index')
-const User = db.model('user')
+const Products = db.model('products')
 
-describe('User routes', () => {
+describe('products routes', () => {
   beforeEach(() => {
     return db.sync({force: true})
   })
 
-  describe('/api/users/', () => {
+  describe('/api/products/', () => {
     const codysEmail = 'cody@puppybook.com'
 
     beforeEach(() => {
-      return User.create({
+      return Products.create({
         email: codysEmail
       })
     })
 
-    it('GET /api/users', async () => {
+    it('GET /api/productss', async () => {
       const res = await request(app)
-        .get('/api/users')
+        .get('/api/products')
         .expect(200)
 
       expect(res.body).to.be.an('array')
       expect(res.body[0].email).to.be.equal(codysEmail)
     })
   })
-  describe('/api/users/:id', () => {
+  describe('/api/products/:id', () => {
     const codysEmail = 'cody@puppybook.com'
 
     beforeEach(() => {
-      return User.create({
+      return Products.create({
         email: codysEmail
       })
     })
 
-    it('GET /api/users/:id', async () => {
+    it('GET /api/products/:id', async () => {
       const res = await request(app)
-        .get('/api/users/1')
+        .get('/api/products/1')
         .expect(200)
 
       expect(res.body.email).to.be.equal('cody@puppybook.com')
     })
   })
-
-  // end describe('/api/users')
-}) // end describe('User routes')
+})
