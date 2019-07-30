@@ -1,5 +1,5 @@
 const Sequelize = require('sequelize')
-const db = require('./database')
+const db = require('../db')
 
 const Products = db.define('products', {
   title: {
@@ -21,28 +21,21 @@ const Products = db.define('products', {
     defaultValue:
       'https://www.cartridge.co.za/wp-content/uploads/woocommerce-placeholder.png'
   },
-  // images: {
-  //   type: Sequelize.ARRAY(Sequelize.STRING),
-  //   validate: {
-  //     isUrl: true
-  //   },
-  //   defaultValue: ['https://www.cartridge.co.za/wp-content/uploads/woocommerce-placeholder.png']
-  // },
   price: {
     type: Sequelize.DECIMAL(13, 2),
     allowNull: false,
     validate: {
       notEmpty: true
     }
-  },
-  inventory: {
-    type: Sequelize.INTEGER,
-    allowNull: false,
-    defaultValue: 1,
-    validate: {
-      min: 0
-    }
   }
+  // inventory: {
+  //   type: Sequelize.INTEGER,
+  //   allowNull: false,
+  //   defaultValue: 1,
+  //   validate: {
+  //     min: 0
+  //   }
+  // }
 })
 Products.prototype.decreaseInventory = function(num) {
   this.inventory = Math.max(this.inventory - num)
