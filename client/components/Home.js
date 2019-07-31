@@ -1,16 +1,25 @@
 import React from 'react'
 import {Button, Carousel} from 'react-bootstrap'
 import {connect} from 'react-redux'
+import {logout} from '../store'
 
 const Home = props => {
   console.log(props)
-  const {user} = props
+  const {user, handleClick} = props
+  console.log(props)
   return (
     <div>
       {user.id ? (
-        <div className="user-log">Welcome back {user.email}</div>
+        <div>
+          <div className="user-log">Welcome back {user.email}</div>
+          <Button className="button button-margin-left" onClick={handleClick}>
+            Logout
+          </Button>
+        </div>
       ) : (
-        <div className="user-log">Please signin/sign up!</div>
+        <div>
+          <div className="user-log">Please signin/sign up!</div>
+        </div>
       )}
       <h3 className="title">3D Printed Jewelry</h3>
       <div className="center-btn">
@@ -66,4 +75,32 @@ const mapStateToProps = state => {
   }
 }
 
-export default connect(mapStateToProps, null)(Home)
+// const mapDispatchToProps = (dispatch, ownProps) => {
+//   return {
+//     handleClick () {
+//       dispatch(logout())
+//         .then(() => {
+//           ownProps.history.push('/')
+//         })
+//     }
+//   }
+// }
+
+const mapDispatchToProps = (dispatch, ownProps) => {
+  // Hey, check it out! Because we pass the connected UserPage to a Route
+  // (we do this in client/index.js), it receives the "route props"
+  // (match, location, and history) as its "own props".
+  const history = ownProps.history
+
+  return {
+    async handleClick() {
+      const thunk = logout()
+      await dispatch(thunk)
+      history.push('/')
+    }
+  }
+}
+
+// gotProducts: () => dispatch(gotProducts())
+
+export default connect(mapStateToProps, mapDispatchToProps)(Home)
