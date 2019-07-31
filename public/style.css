@@ -105,6 +105,10 @@ form div {
   width: 75%;
 }
 
+.products-image-size:hover {
+  opacity: 0.5;
+}
+
 .center-products {
   text-align: center;
   margin-top: 5%;
@@ -136,4 +140,9 @@ form div {
 
 .checkout-image {
   text-align: center;
+}
+
+.product-title {
+  margin-top: -5%;
+  margin-bottom: 8%;
 }
