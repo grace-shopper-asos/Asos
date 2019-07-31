@@ -101,6 +101,13 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   }
 }
 
+// function ActionLink() {
+//   function handleDirect(e) {
+//     e.preventDefault();
+//     console.log('The link was clicked.');
+//   }
+// }
+
 // gotProducts: () => dispatch(gotProducts())
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home)
