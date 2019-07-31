@@ -5,7 +5,7 @@ body {
 }
 
 .title {
-  margin-top: 10%;
+  margin-top: 8%;
 }
 
 a {
@@ -103,6 +103,11 @@ form div {
 
 .products-image-size {
   width: 75%;
+  border: 2px solid #e7f8fc;
+}
+
+.products-image-size:hover {
+  opacity: 0.5;
 }
 
 .center-products {
@@ -136,4 +141,18 @@ form div {
 
 .checkout-image {
   text-align: center;
+}
+
+.product-title {
+  margin-top: -6%;
+  margin-bottom: 8%;
+}
+
+.user-log {
+  margin-left: 50px;
+  margin-top: 8%;
+}
+
+.button-margin-left {
+  margin-left: 55px;
 }

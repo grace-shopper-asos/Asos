@@ -13,7 +13,7 @@ class Products extends React.Component {
   render() {
     const {products} = this.props
     console.log(this.props)
-    if (products.length < 1) {
+    if (typeof products === 'undefined') {
       return <div>Loading...</div>
     } else {
       return (
@@ -27,7 +27,9 @@ class Products extends React.Component {
                 <Link to={`/products/${product.id}`}>
                   <img className="products-image-size" src={product.imageUrl} />
                 </Link>
-                <div>{product.title}</div>
+                <Link to={`/products/${product.id}`}>
+                  <div className="product-title">{product.title}</div>
+                </Link>
               </Col>
             ))}
           </Row>
