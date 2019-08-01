@@ -12,6 +12,7 @@ router.post('/login', async (req, res, next) => {
       console.log('Incorrect password for user:', req.body.email)
       res.status(401).send('Wrong username and/or password')
     } else {
+      // req.session.userid = user.id
       req.login(user, err => (err ? next(err) : res.json(user)))
     }
   } catch (err) {
@@ -39,6 +40,9 @@ router.post('/logout', (req, res) => {
 })
 
 router.get('/me', (req, res) => {
+  req.session.userid = req.user.id
+  console.log('didugetit', req.session.userid)
+  console.log('didugetit', req.session)
   res.json(req.user)
 })
 

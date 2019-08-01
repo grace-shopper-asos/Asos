@@ -76,8 +76,11 @@ async function seed() {
   ])
 
   const orders = await Promise.all([
-    Orders.create({productId: 9, userId: '1'}),
-    Orders.create({productId: 3, userId: '2'})
+    Orders.create({productId: 9, userId: 1}),
+    Orders.create({productId: 3, userId: 2}),
+    Orders.create({productId: 4, userId: 1}),
+    Orders.create({productId: 2, userId: 1}),
+    Orders.create({productId: 7, userId: 2})
   ])
 
   console.log(

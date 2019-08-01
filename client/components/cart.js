@@ -1,9 +1,11 @@
 import React from 'react'
 import {Col, Row, Button} from 'react-bootstrap'
 import {connect} from 'react-redux'
+import {getProductsInCart, removeFromCart} from '../store'
 
-const Cart = () => {
-  const productsInCart = this.props.allproducts
+const Cart = props => {
+  const productsInCart = props.cart
+  console.log('dude wheres my cart', props)
   return (
     <div>
       <div className="title">Your cart</div>
@@ -20,9 +22,7 @@ const Cart = () => {
               <h1>{product.price}</h1>
             </Col>
             <Col sm={3} className="x">
-              <Button onClick={() => this.props.removeProduct(product)}>
-                X
-              </Button>
+              <Button onClick={() => props.removeFromCart(product)}>X</Button>
             </Col>
           </div>
         ))}
@@ -33,13 +33,13 @@ const Cart = () => {
 
 const mapState = state => {
   return {
-    allproducts: state.allproducts
+    cart: state.items
   }
 }
 const mapDispatch = dispatch => {
   return {
     getProductsInCart: () => dispatch(getProductsInCart()),
-    removeProduct: product => dispatch(removeProduct(product))
+    removeProduct: product => dispatch(removeFromCart(product))
   }
 }
 export default connect(mapState, mapDispatch)(Cart)
