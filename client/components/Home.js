@@ -2,6 +2,7 @@ import React from 'react'
 import {Button, Carousel} from 'react-bootstrap'
 import {connect} from 'react-redux'
 import {logout} from '../store'
+import {Link} from 'react-router-dom'
 
 const Home = props => {
   console.log(props)
@@ -23,7 +24,9 @@ const Home = props => {
       )}
       <h3 className="title">3D Printed Jewelry</h3>
       <div className="center-btn">
-        <Button className="button">Shop Now</Button>
+        <Link to="/products">
+          <Button className="button">Shop Now</Button>
+        </Link>
         {/* needs handlesubmit + dispatch */}
       </div>
       <div className="carousel-size">
