@@ -1,11 +1,7 @@
 import React, {Component} from 'react'
 import {Col, Row, Button} from 'react-bootstrap'
 import {connect} from 'react-redux'
-import {deleteItems, deleteSingleItem} from '../store/cart'
-// import Checkout from './payment'
-/**
- * COMPONENT
- */
+import {deleteItems} from '../store/cart'
 
 export class Cart extends Component {
   constructor(props) {
@@ -13,8 +9,8 @@ export class Cart extends Component {
     this.handleClick = this.handleClick.bind(this)
   }
 
-  handleClick(product, quantity) {
-    this.props.deleteFromCart(product, quantity)
+  handleClick(product) {
+    this.props.deleteFromCart(product)
   }
 
   render() {
@@ -46,9 +42,6 @@ export class Cart extends Component {
   }
 }
 
-/**
- * CONTAINER
- */
 const mapState = state => {
   return {
     cart: state.cart
@@ -57,8 +50,7 @@ const mapState = state => {
 
 const mapDispatch = dispatch => {
   return {
-    deleteFromCart: product => dispatch(deleteItems(product)),
-    deleteSingleFromCart: product => dispatch(deleteSingleItem(product))
+    deleteFromCart: product => dispatch(deleteItems(product))
   }
 }
 

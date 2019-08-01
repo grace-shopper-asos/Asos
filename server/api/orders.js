@@ -2,11 +2,10 @@ const router = require('express').Router()
 const {Orders, User, Products} = require('../db/models')
 
 module.exports = router
-//local storage
-//create a new guest order persistant window.localstorage - clear storage after
+
 router.get('/all', async (req, res, next) => {
   try {
-    console.log('Passport', req.session)
+    // console.log('Passport', req.session)
     const orders = await Orders.findAll({
       where: {
         userId: req.session.passport.user,
@@ -19,7 +18,7 @@ router.get('/all', async (req, res, next) => {
     next(error)
   }
 })
-
+//get orders for the user
 router.get('/', async (req, res, next) => {
   try {
     if (req.session && req.session.passport) {
@@ -40,10 +39,10 @@ router.get('/', async (req, res, next) => {
     next(error)
   }
 })
-
+//create a new order
 router.post('/', async (req, res, next) => {
   try {
-    console.log(req)
+    // console.log(req)
     if (req.session && req.session.passport) {
       const newOrder = await Orders.create({
         userId: req.session.passport.user,
@@ -56,7 +55,7 @@ router.post('/', async (req, res, next) => {
     next(error)
   }
 })
-
+//to update order in orders table
 router.put('/', async (req, res, next) => {
   try {
     if (req.session && req.session.passport) {
@@ -77,7 +76,7 @@ router.put('/', async (req, res, next) => {
     next(error)
   }
 })
-
+//to delete product from orders table
 router.delete('/:productId', async (req, res, next) => {
   try {
     // console.log('DELETE!!!!', req.session)
