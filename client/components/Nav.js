@@ -1,8 +1,10 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
 import {Navbar} from 'react-bootstrap'
+import {connect} from 'react-redux'
 
-const Nav = () => {
+const Nav = props => {
+  const {user} = props
   return (
     <div>
       <Navbar
@@ -26,16 +28,22 @@ const Nav = () => {
               Shop
             </Link>
           </Navbar.Text>
-          <Navbar.Text className="nav-padding-right">
-            <Link className="nav-hover" to="/signup">
-              Sign Up
-            </Link>
-          </Navbar.Text>
-          <Navbar.Text className="nav-padding-right">
-            <Link className="nav-hover" to="/login">
-              Sign In
-            </Link>
-          </Navbar.Text>
+          {!user.id ? (
+            <div>
+              <Navbar.Text className="nav-padding-right">
+                <Link className="nav-hover" to="/signup">
+                  Sign Up
+                </Link>
+              </Navbar.Text>
+              <Navbar.Text className="nav-padding-right">
+                <Link className="nav-hover" to="/login">
+                  Sign In
+                </Link>
+              </Navbar.Text>{' '}
+            </div>
+          ) : (
+            <Navbar.Text className="nav-padding-right">Logged in</Navbar.Text>
+          )}
           <Navbar.Brand>
             <Link className="nav-hover" to="/cart">
               <img
@@ -50,4 +58,11 @@ const Nav = () => {
   )
 }
 
-export default Nav
+const mapStateToProps = state => {
+  return {
+    user: state.user
+  }
+}
+
+// export default Nav
+export default connect(mapStateToProps, null)(Nav)
