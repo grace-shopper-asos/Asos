@@ -2,10 +2,19 @@ import React from 'react'
 import {Col, Row, Button} from 'react-bootstrap'
 import {connect} from 'react-redux'
 import {gotOneProduct} from '../store'
+import {addToOrder, addToCart} from '../store/cart'
 
 class SingleProduct extends React.Component {
+  constructor(props) {
+    super(props)
+    this.handleClick = this.handleClick.bind(this)
+  }
   componentDidMount() {
     this.props.gotOneProduct(this.props.match.params.id)
+  }
+  handleClick(singleProduct) {
+    this.props.addToCart(singleProduct)
+    this.props.addingToOrder(singleProduct)
   }
 
   render() {
@@ -23,7 +32,12 @@ class SingleProduct extends React.Component {
             <Col sm={6}>
               <div>{product.description}</div>
               <div className="price">{product.price}</div>
-              <Button className="uppercase button-login">Add to cart</Button>
+              <Button
+                className="uppercase button-login"
+                onClick={() => this.handleClick(product)}
+              >
+                Add to cart
+              </Button>
             </Col>
           </Row>
         </div>
@@ -34,13 +48,16 @@ class SingleProduct extends React.Component {
 
 const mapState = state => {
   return {
-    product: state.product
+    product: state.product,
+    cart: state.cart
   }
 }
 
 const mapDispatch = dispatch => {
   return {
-    gotOneProduct: id => dispatch(gotOneProduct(id))
+    gotOneProduct: id => dispatch(gotOneProduct(id)),
+    addToCart: singleProduct => dispatch(addToCart(singleProduct)),
+    addingToOrder: singleProduct => dispatch(addToOrder(singleProduct))
   }
 }
 
