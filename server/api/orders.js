@@ -2,34 +2,97 @@ const router = require('express').Router()
 const {Orders, User, Products} = require('../db/models')
 
 module.exports = router
-
-//create a new guest order
-router.post('/guest', async (req, res, next) => {
+//local storage
+//create a new guest order persistant window.localstorage - clear storage after
+router.get('/all', async (req, res, next) => {
   try {
-    //use req.sesion.id to determine if there is a session for that user
-    //check if req.session.cart has been created, if so then we call add to cart method on our orders table
-    //otherwise we create an orderId on our table
-    const newOrder = await Orders.create({
-      status: 'open'
+    console.log('Passport', req.session)
+    const orders = await Orders.findAll({
+      where: {
+        userId: req.session.passport.user,
+        status: 'open'
+      },
+      include: [{model: Products}]
     })
-    res.json(newOrder.id)
-  } catch (err) {
-    next(err)
+    res.status(201).send(orders)
+  } catch (error) {
+    next(error)
   }
 })
 
-// create a new order
-router.post('/:userId', async (req, res, next) => {
+router.get('/', async (req, res, next) => {
   try {
-    const newOrder = await Orders.create({
-      status: 'open'
-    })
-
-    newOrder.setUser(req.params.userId)
-    res.json(newOrder.id)
-  } catch (err) {
-    next(err)
+    if (req.session && req.session.passport) {
+      const cartToReload = await Products.findAll({
+        include: [
+          {
+            model: Orders,
+            where: {
+              userId: req.session.passport.user,
+              status: 'open'
+            }
+          }
+        ]
+      })
+      res.status(201).send(cartToReload)
+    }
+  } catch (error) {
+    next(error)
   }
 })
 
-///if the order already exists we need a route to add an item to our cart column
+router.post('/', async (req, res, next) => {
+  try {
+    console.log(req)
+    if (req.session && req.session.passport) {
+      const newOrder = await Orders.create({
+        userId: req.session.passport.user,
+        productId: req.body.id,
+        status: 'open'
+      })
+      res.status(201).send(newOrder)
+    }
+  } catch (error) {
+    next(error)
+  }
+})
+
+router.put('/', async (req, res, next) => {
+  try {
+    if (req.session && req.session.passport) {
+      const newOrder = await Orders.update(
+        {status: 'open'},
+        {where: {userId: req.session.passport.user}}
+      )
+      res.status(201).send(newOrder)
+    } else {
+      const guestOrder = await Orders.create({
+        userId: null,
+        productId: req.body.id,
+        status: 'open'
+      })
+      res.status(201).send(guestOrder)
+    }
+  } catch (error) {
+    next(error)
+  }
+})
+
+router.delete('/:productId', async (req, res, next) => {
+  try {
+    // console.log('DELETE!!!!', req.session)
+    const productId = req.params.productId
+    if (req.session && req.session.passport) {
+      await Orders.destroy({
+        where: {
+          userId: req.session.passport.user,
+          status: 'open',
+          productId: productId
+        }
+      })
+      res.status(202).send('item deleted from cart')
+    }
+  } catch (error) {
+    next(error)
+  }
+})
