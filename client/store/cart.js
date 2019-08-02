@@ -6,10 +6,10 @@ import store from './index'
 const ADD_TO_CART = 'ADD_TO_CART'
 const REMOVE_ITEM = 'REMOVE_ITEM'
 const CLEAR_CART = 'CLEAR_CART'
-const ADD_SINGLE_ITEM = 'ADD_SINGLE_ITEM'
 
 const initialState = {
   cart: []
+  // quantity:
 }
 // ACTION CREATORS
 
@@ -18,26 +18,11 @@ export const removeItem = product => ({
   type: REMOVE_ITEM,
   product
 })
-export const addSingleItem = product => ({
-  type: ADD_SINGLE_ITEM,
-  product
-})
+
 export const clearCart = () => ({type: CLEAR_CART})
 
 // THUNK CREATORS
 
-export const completeOrder = currentCart => dispatch => {
-  try {
-    // console.log('CURRENT CART', currentCart)
-    currentCart.map(async cartItem => {
-      await axios.put('/api/orders', cartItem)
-    })
-    localStorage.clear()
-    dispatch(clearCart())
-  } catch (error) {
-    console.error(error)
-  }
-}
 //adding product to orders table
 export const addToOrder = product => async dispatch => {
   try {
@@ -83,8 +68,6 @@ export default function(state = initialState, action) {
         ...state,
         cart: state.cart.filter(product => product.id !== action.product.id)
       }
-    case ADD_SINGLE_ITEM:
-      return {...state, cart: [...state.cart, action.product]}
     case CLEAR_CART:
       return {...state, cart: []}
     default:
