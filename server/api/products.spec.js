@@ -20,7 +20,7 @@ describe('products routes', () => {
       })
     })
 
-    it('GET /api/productss', async () => {
+    it('GET /api/products', async () => {
       const res = await request(app)
         .get('/api/products')
         .expect(200)
