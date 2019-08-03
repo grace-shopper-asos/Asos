@@ -7,23 +7,13 @@ const Orders = db.define('orders', {
     primaryKey: true,
     autoIncrement: true
   },
+  userId: Sequelize.INTEGER,
+  productId: Sequelize.INTEGER,
   status: {
     type: Sequelize.ENUM('open', 'closed'),
     allowNull: false,
     defaultValue: 'open'
-  },
-  quantity: {
-    type: Sequelize.INTEGER,
-    defaultValue: 1
   }
 })
-
-Orders.prototype.increaseQuantity = function() {
-  this.quantity++
-}
-
-Orders.prototype.decreaseQuantity = function() {
-  this.quantity--
-}
 
 module.exports = Orders

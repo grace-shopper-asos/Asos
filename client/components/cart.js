@@ -1,30 +1,21 @@
 import React, {Component} from 'react'
 import {Col, Row, Button} from 'react-bootstrap'
 import {connect} from 'react-redux'
-import {
-  updateDecreaseUnits,
-  updateAddUnits,
-  deleteItems,
-  getAllOpen
-} from '../store/cart'
-import {Link} from 'react-router-dom'
+import {deleteItems} from '../store/cart'
 
 export class Cart extends Component {
-  constructor() {
-    super()
-    getAllOpen()
+  constructor(props) {
+    super(props)
     this.handleClick = this.handleClick.bind(this)
   }
-  // async componentDidMount() {
-  //   await this.props.getAllOpen()
-  // }
 
   handleClick(product) {
     this.props.deleteFromCart(product)
   }
 
   render() {
-    console.log('wutsinprops', this.props)
+    console.log('my props', this.props)
+
     return (
       <div>
         <div className="title">Your cart</div>
@@ -35,29 +26,16 @@ export class Cart extends Component {
                 <img className="products-image-size" src={product.imgUrl} />
               </Col>
               <Col sm={3} className="product-title">
-                <h2>{product.title}</h2>
-              </Col>
-              <Col sm={3} className="product-quantity">
-                <Button onClick={() => updateDecreaseUnits(product)}>
-                  {' '}
-                  -{' '}
-                </Button>
-                <h2>{product.quantity}</h2>
-                <Button onClick={() => updateAddUnits(product)}> + </Button>
+                <h1>{product.title}</h1>
               </Col>
               <Col sm={3} className="price">
-                <h2>${product.price}</h2>
+                <h1>{product.price}</h1>
               </Col>
               <Col sm={3} className="x">
-                {/* <Button onClick={() => this.handleClick(product)}>X</Button> */}
+                <Button onClick={() => this.handleClick(product)}>X</Button>
               </Col>
             </div>
           ))}
-          {this.props.cart.cart.length ? (
-            <Link>
-              <Button>Checkout</Button>
-            </Link>
-          ) : null}
         </Row>
       </div>
     )
@@ -72,8 +50,7 @@ const mapState = state => {
 
 const mapDispatch = dispatch => {
   return {
-    deleteFromCart: product => dispatch(deleteItems(product)),
-    getAllOpen: () => dispatch(getAllOpen())
+    deleteFromCart: product => dispatch(deleteItems(product))
   }
 }
 

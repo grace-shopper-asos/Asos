@@ -3,12 +3,10 @@ const {Orders, User, Products} = require('../db/models')
 
 module.exports = router
 
-//
-//create a new order
+//route to create a new order for logged in user in orders table
 router.post('/', async (req, res, next) => {
-  console.log('Passport', req.session)
   try {
-    // console.log(req.session)
+    // console.log(req)
     if (req.session && req.session.passport) {
       const newOrder = await Orders.create({
         userId: req.session.passport.user,
@@ -22,7 +20,7 @@ router.post('/', async (req, res, next) => {
   }
 })
 
-//to delete product from orders table
+//route to delete a product from orders table for logged in user
 router.delete('/:productId', async (req, res, next) => {
   try {
     // console.log('DELETE!!!!', req.session)
@@ -41,53 +39,71 @@ router.delete('/:productId', async (req, res, next) => {
     next(error)
   }
 })
+//************************************************* */
+///// THE below ROUTES ARE STILL IN WORKING PROGRESS!!!!
+//************************************************* */
 
-//get all open orders for the user
-router.get('/', async (req, res, next) => {
-  try {
-    // if (req.session && req.session.passport) {
-    console.log('dude wheres my passport!!!!!!', req.user)
-    const allorders = await User.findByPk(1, {
-      attributes: ['id'],
-      include: [
-        {
-          model: Products,
-          attributes: ['id', 'title', 'price']
-        }
-      ]
-    })
-    res.status(201).send(allorders)
-    // }
-  } catch (error) {
-    next(error)
-  }
-})
-// {
-//   where: {
-//     userId: req.session.passport.user,
-//     status: 'open'
-//   }
-
-// to update quantity in orders table
+///This route should be able to create a new order on a checkput for guest and should update the order to status 'closed' for signed in user
 router.put('/', async (req, res, next) => {
-  const productid = req.body.product.id
   try {
     if (req.session && req.session.passport) {
-      const existing = await Orders.findOne({
-        where: {
-          status: 'open',
-          productId: productid,
-          userId: req.session.passport.user
-        }
+      const newOrder = await Orders.update(
+        {status: 'closed'},
+        {where: {userId: req.session.passport.user}}
+      )
+      res.status(201).send(newOrder)
+    } else {
+      const guestOrder = await Orders.create({
+        userId: null,
+        productId: req.body.id,
+        status: 'closed'
       })
-      existing.increaseQuantity()
-      const updated = await existing.update(req.body)
-      res.json(updated)
-
-      res.status(201).send(updateQuantity)
+      res.status(201).send(guestOrder)
     }
   } catch (error) {
     next(error)
   }
 })
-//also need to include if - or + and if quantity === 0 then delete row from orders tablwe
+
+///Below Orders are working for getting user orders that are open
+
+//get all products from the 'open' order for the user
+router.get('/all', async (req, res, next) => {
+  try {
+    console.log('Passport', req.session)
+    const orders = await Orders.findAll({
+      where: {
+        userId: req.session.passport.user,
+        status: 'open'
+      },
+      include: [{model: Products}]
+    })
+    res.status(201).send(orders)
+  } catch (error) {
+    next(error)
+  }
+})
+
+//get all products from the user
+router.get('/', async (req, res, next) => {
+  try {
+    if (req.session && req.session.passport) {
+      const cartToReload = await Products.findAll({
+        include: [
+          {
+            model: Orders,
+            where: {
+              userId: req.session.passport.user,
+              status: 'open'
+            }
+          }
+        ]
+      })
+      res.status(201).send(cartToReload)
+    }
+  } catch (error) {
+    next(error)
+  }
+})
+
+module.exports = router
