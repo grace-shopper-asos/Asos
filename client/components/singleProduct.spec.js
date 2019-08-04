@@ -5,12 +5,13 @@ import React from 'react'
 import enzyme, {shallow} from 'enzyme'
 import Adapter from 'enzyme-adapter-react-16'
 import {SingleProduct} from './SingleProduct'
+// import { connect } from 'react-redux'
 
 const adapter = new Adapter()
 enzyme.configure({adapter})
 
 describe('SingleProduct', () => {
-  describe('should render the pug profile props it receives', () => {
+  describe('should render the product props it receives', () => {
     let product
     let ProductWrapper
 
@@ -36,13 +37,13 @@ describe('SingleProduct', () => {
     })
 
     it('includes the product description as a div', () => {
-      expect(ProfileWrapper.find('div')).to.have.html(
+      expect(ProductWrapper.find('div')).to.have.html(
         '<div>Buy this jewelry</div>'
       )
     })
 
     it('includes the product description as a div', () => {
-      expect(ProfileWrapper.find('.price')).to.have.html(
+      expect(ProductWrapper.find('.price')).to.have.html(
         '<div class="price">99.99</div>'
       )
     })
@@ -62,10 +63,10 @@ describe('SingleProduct', () => {
       expect(ProductWrapper.find('.products-image-size')).to.have.html(
         `<img class="products-image-size" src="https://i.imgur.com/ylmsp5j.jpg"/>`
       )
-      expect(ProfileWrapper.find('div')).to.have.html(
+      expect(ProductWrapper.find('div')).to.have.html(
         '<div>Buy this jewelry as well</div>'
       )
-      expect(ProfileWrapper.find('.price')).to.have.html(
+      expect(ProductWrapper.find('.price')).to.have.html(
         '<div class="price">89.99</div>'
       )
     })
