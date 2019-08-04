@@ -1,16 +1,21 @@
 import React, {Component} from 'react'
 import {Col, Row, Button} from 'react-bootstrap'
 import {connect} from 'react-redux'
-import {deleteItems} from '../store/cart'
+import {deleteItems, updateCartStatus} from '../store/cart'
 
 export class Cart extends Component {
   constructor(props) {
     super(props)
     this.handleClick = this.handleClick.bind(this)
+    this.handleClickUpdate = this.handleClickUpdate.bind(this)
   }
 
   handleClick(product) {
     this.props.deleteFromCart(product)
+  }
+
+  handleClickUpdate(product) {
+    this.props.updateCartStatus(product)
   }
 
   render() {
@@ -18,7 +23,7 @@ export class Cart extends Component {
 
     return (
       <div>
-        <div className="title">Your cart</div>
+        {/* <div className="title">Your cart</div>
         <Row className="single-product-margin">
           {this.props.cart.cart.map(product => (
             <div key={product.id}>
@@ -36,7 +41,13 @@ export class Cart extends Component {
               </Col>
             </div>
           ))}
-        </Row>
+           */}
+
+        <Button onClick={() => this.handleClickUpdate(product)}>
+          Checkout
+        </Button>
+
+        {/* </Row> */}
       </div>
     )
   }
@@ -50,7 +61,8 @@ const mapState = state => {
 
 const mapDispatch = dispatch => {
   return {
-    deleteFromCart: product => dispatch(deleteItems(product))
+    deleteFromCart: product => dispatch(deleteItems(product)),
+    updateCartStatus: product => dispatch(updateCartStatus(product))
   }
 }
 
