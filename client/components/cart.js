@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import {Col, Row, Button} from 'react-bootstrap'
 import {connect} from 'react-redux'
 import {deleteItems, updateCartStatus} from '../store/cart'
+import {Link} from 'react-router-dom'
 
 export class Cart extends Component {
   constructor(props) {
@@ -23,7 +24,7 @@ export class Cart extends Component {
 
     return (
       <div>
-        {/* <div className="title">Your cart</div>
+        <div className="title">Your cart</div>
         <Row className="single-product-margin">
           {this.props.cart.cart.map(product => (
             <div key={product.id}>
@@ -41,13 +42,15 @@ export class Cart extends Component {
               </Col>
             </div>
           ))}
-           */}
-
-        <Button onClick={() => this.handleClickUpdate(product)}>
-          Checkout
-        </Button>
-
-        {/* </Row> */}
+        </Row>
+        <div>
+          <Button
+            onClick={() => this.handleClickUpdate(this.props.cart.cart)}
+            className="margin-top-button"
+          >
+            Submit
+          </Button>
+        </div>
       </div>
     )
   }
