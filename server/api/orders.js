@@ -3,6 +3,28 @@ const {Orders, User, Products} = require('../db/models')
 
 module.exports = router
 
+router.get('/', async (req, res, next) => {
+  try {
+    // console.log('Passport', req.session)
+    const orders = await Products.findAll({
+      include: [
+        {
+          model: Orders,
+          where: {
+            userId: req.session.passport.user,
+            status: 'open'
+          },
+          attributes: ['id']
+        }
+      ]
+    })
+    console.log(orders)
+    res.status(201).send(orders)
+  } catch (error) {
+    next(error)
+  }
+})
+
 //route to create a new order for logged in user in orders table
 router.post('/', async (req, res, next) => {
   try {
@@ -21,19 +43,20 @@ router.post('/', async (req, res, next) => {
 })
 
 //route to delete a product from orders table for logged in user
-router.delete('/:productId', async (req, res, next) => {
+router.delete('/:orderId', async (req, res, next) => {
   try {
     // console.log('DELETE!!!!', req.session)
-    const productId = req.params.productId
+    const orderId = req.params.orderId
+    const toBeRemoved = await Orders.findByPk(orderId)
     if (req.session && req.session.passport) {
       await Orders.destroy({
         where: {
           userId: req.session.passport.user,
           status: 'open',
-          productId: productId
+          id: orderId
         }
       })
-      res.status(202).send('item deleted from cart')
+      res.status(202).send(toBeRemoved)
     }
   } catch (error) {
     next(error)
@@ -68,42 +91,20 @@ router.put('/', async (req, res, next) => {
 ///Below Orders are working for getting user orders that are open
 
 //get all products from the 'open' order for the user
-router.get('/all', async (req, res, next) => {
-  try {
-    console.log('Passport', req.session)
-    const orders = await Orders.findAll({
-      where: {
-        userId: req.session.passport.user,
-        status: 'open'
-      },
-      include: [{model: Products}]
-    })
-    res.status(201).send(orders)
-  } catch (error) {
-    next(error)
-  }
-})
-
-//get all products from the user
-router.get('/', async (req, res, next) => {
-  try {
-    if (req.session && req.session.passport) {
-      const cartToReload = await Products.findAll({
-        include: [
-          {
-            model: Orders,
-            where: {
-              userId: req.session.passport.user,
-              status: 'open'
-            }
-          }
-        ]
-      })
-      res.status(201).send(cartToReload)
-    }
-  } catch (error) {
-    next(error)
-  }
-})
+// router.get('/all', async (req, res, next) => {
+//   try {
+//     console.log('Passport', req.session)
+//     const orders = await Orders.findAll({
+//       where: {
+//         userId: req.session.passport.user,
+//         status: 'open'
+//       },
+//       include: [{model: Products}]
+//     })
+//     res.status(201).send(orders)
+//   } catch (error) {
+//     next(error)
+//   }
+// })
 
 module.exports = router
