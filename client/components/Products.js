@@ -22,8 +22,8 @@ class Products extends React.Component {
             3D Printed Jewelry<br />Buy Now
           </div>
           <Row className="center-products">
-            {products.map((product, i) => (
-              <Col sm={4} key={i}>
+            {products.map(product => (
+              <Col sm={4} key={product.id}>
                 <Link to={`/products/${product.id}`}>
                   <img className="products-image-size" src={product.imageUrl} />
                 </Link>

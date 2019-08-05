@@ -7,6 +7,8 @@ const ADD_TO_CART = 'ADD_TO_CART'
 const REMOVE_ITEM = 'REMOVE_ITEM'
 const CLEAR_CART = 'CLEAR_CART'
 const UPDATE_CART = 'UPDATE_CART'
+const OPEN_ORDERS_USER = 'OPEN_ORDERS_USER'
+const REMOVE_ONE = 'REMOVE_ONE'
 
 //// INITIAL STATE
 const initialState = {
@@ -22,9 +24,16 @@ export const removeItem = product => ({
   product
 })
 
+export const removeOneFromState = product => ({
+  type: REMOVE_ONE,
+  product
+})
+
 export const clearCart = () => ({type: CLEAR_CART})
 
 export const updateCart = product => ({type: UPDATE_CART, product})
+
+export const getAllOpenUser = products => ({type: OPEN_ORDERS_USER, products})
 
 ////// THUNK CREATORS
 
@@ -37,28 +46,23 @@ export const addToOrder = product => async dispatch => {
   }
 }
 //deleting product to orders table
-export const deleteItems = product => async dispatch => {
+export const deleteItems = order => async dispatch => {
   try {
-    dispatch(removeItem(product))
-
-    await axios.delete(`/api/orders/${product.id}`)
+    if (order.id) {
+      const {data} = await axios.delete(`/api/orders/${order.id}`)
+      dispatch(removeItem(data))
+    } else {
+      dispatch(removeItem(order))
+    }
   } catch (error) {
     console.error(error)
   }
 }
-//LOADING CART
-export const reloadCart = () => async dispatch => {
+
+export const getOpenOrders = () => async dispatch => {
   try {
-    store.getState().cart.cart.map(eachProduct => {
-      dispatch(addToOrder(eachProduct))
-    })
-    dispatch(clearCart())
-    // const {data} = await axios.get('/api/orders')
-    // data.map(eachProduct => {
-    //   for (let i = 0; i < eachProduct.orders.length; i++) {
-    //     dispatch(addToCart(eachProduct))
-    //   }
-    // })
+    const {data} = await axios.get('/api/orders')
+    dispatch(getAllOpenUser(data))
   } catch (error) {
     console.error(error)
   }
@@ -69,7 +73,6 @@ export const updateCartStatus = product => async dispatch => {
     store.getState().cart.cart.map(eachProduct => {
       dispatch(updateCart(eachProduct))
     })
-
     await axios.put(`/api/orders`, product)
   } catch (error) {
     console.error(error)
@@ -77,19 +80,49 @@ export const updateCartStatus = product => async dispatch => {
 }
 
 export default function(state = initialState, action) {
+  let removeOne
   switch (action.type) {
     case ADD_TO_CART:
       return {...state, cart: [...state.cart, action.product]}
     case REMOVE_ITEM:
       return {
         ...state,
-        cart: state.cart.filter(product => product.id !== action.product.id)
+        cart: state.cart.filter(order => order.id !== action.order.id)
       }
     case CLEAR_CART:
       return {...state, cart: []}
     case UPDATE_CART:
       return {...state, cart: []}
+    case OPEN_ORDERS_USER:
+      return {...state, cart: action.products}
+    case REMOVE_ONE:
+      removeOne = state.cart.findIndex(item => item.id === action.product.id)
+      console.log('u made it here', removeOne)
+      if (removeOne > -1) {
+        return {
+          ...state,
+          cart: state.cart.filter((order, i) => i !== removeOne)
+        }
+      }
     default:
       return state
   }
 }
+
+//LOADING CART
+// export const reloadCart = () => async dispatch => {
+//   try {
+//     store.getState().cart.cart.map(eachProduct => {
+//       dispatch(addToOrder(eachProduct))
+//     })
+//     dispatch(clearCart())
+//     // const {data} = await axios.get('/api/orders')
+//     // data.map(eachProduct => {
+//     //   for (let i = 0; i < eachProduct.orders.length; i++) {
+//     //     dispatch(addToCart(eachProduct))
+//     //   }
+//     // })
+//   } catch (error) {
+//     console.error(error)
+//   }
+// }
