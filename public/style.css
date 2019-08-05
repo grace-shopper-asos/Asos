@@ -173,3 +173,8 @@ form div {
 .center-button-submit {
   text-align: center;
 }
+
+.cart-num {
+  margin-right: 15px;
+  margin-left: -20px;
+}
