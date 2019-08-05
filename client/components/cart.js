@@ -41,43 +41,56 @@ export class Cart extends Component {
         <Row className="single-product-margin">
           {this.props.cart.cart.map((product, i) => (
             <div key={i}>
-              <Col sm={3} className="product-center">
-                <img className="products-image-size" src={product.imageUrl} />
-              </Col>
-              <Col sm={3} className="product-title">
-                <h1>{product.title}</h1>
-              </Col>
-              <Col sm={3} className="price">
-                <h1>${product.price}</h1>
-              </Col>
-              <Col sm={3} className="x">
-                {product.orders ? (
-                  <div>
-                    <h1>quantity:{product.orders.length}</h1>
-                    <Button onClick={() => this.handleClick(product.orders)}>
-                      X
-                    </Button>
-                  </div>
-                ) : (
-                  <div>
-                    <h1>quantity:1</h1>
-                    <Button onClick={() => this.handleClickTest(product)}>
-                      X
-                    </Button>
-                  </div>
-                )}
+              <Col className="product-center">
+                <Row>
+                  <Col sm={3}>
+                    <img
+                      className="products-image-size"
+                      src={product.imageUrl}
+                    />
+                  </Col>
+                  <Col sm={3} className="product-title">
+                    <h1>{product.title}</h1>
+                  </Col>
+                  <Col sm={3} className="price">
+                    <h1>${product.price}</h1>
+                  </Col>
+                  <Col sm={3} className="x">
+                    {product.orders ? (
+                      <div>
+                        <h1>quantity:{product.orders.length}</h1>
+                        <Button
+                          className="button"
+                          onClick={() => this.handleClick(product.orders)}
+                        >
+                          X
+                        </Button>
+                      </div>
+                    ) : (
+                      <div className="center-button-submit">
+                        <h1>quantity:1</h1>
+                        <Button
+                          className="button"
+                          onClick={() => this.handleClickTest(product)}
+                        >
+                          X
+                        </Button>
+                      </div>
+                    )}
+                  </Col>>
+                </Row>
               </Col>
             </div>
           ))}
         </Row>
-        <div>
+        <div className="center-button-submit">
           {this.props.cart.cart.length ? (
             <Link to="/checkout">
               <Button
                 onClick={() => this.handleClickUpdate(this.props.cart.cart)}
-                className="margin-top-button"
+                className="button"
               >
-                Submit
+                Submit Order
               </Button>
             </Link>
           ) : null}

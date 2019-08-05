@@ -4,7 +4,7 @@ import {Navbar} from 'react-bootstrap'
 import {connect} from 'react-redux'
 
 const Nav = props => {
-  const {user} = props
+  const {user, cart} = props
   return (
     <div>
       <Navbar
@@ -52,6 +52,19 @@ const Nav = props => {
               />
             </Link>
           </Navbar.Brand>
+          {cart.cart.length > 0 ? (
+            <div>
+              <Navbar.Text className="nav-padding-right cart-num">
+                {cart.cart.length}
+              </Navbar.Text>
+            </div>
+          ) : (
+            <div>
+              <Navbar.Text className="nav-padding-right cart-num">
+                {cart.cart.length}
+              </Navbar.Text>
+            </div>
+          )}
         </Navbar.Collapse>
       </Navbar>
     </div>
@@ -60,7 +73,8 @@ const Nav = props => {
 
 const mapStateToProps = state => {
   return {
-    user: state.user
+    user: state.user,
+    cart: state.cart
   }
 }
 

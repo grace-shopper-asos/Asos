@@ -160,3 +160,21 @@ form div {
 .margin-top-button {
   margin-top: 250px;
 }
+
+.product-title {
+  margin-top: 10px;
+  font-size: 15px;
+}
+
+.price {
+  padding: 0;
+}
+
+.center-button-submit {
+  text-align: center;
+}
+
+.cart-num {
+  margin-right: 15px;
+  margin-left: -20px;
+}
