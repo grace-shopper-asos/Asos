@@ -26,6 +26,11 @@ class EmailRequest extends Component {
       email,
       message
     })
+    this.setState({
+      name: '',
+      email: '',
+      message: ''
+    })
   }
 
   render() {
