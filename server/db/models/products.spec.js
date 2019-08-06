@@ -1,98 +1,98 @@
-/* eslint-env mocha, chai */
+// /* eslint-env mocha, chai */
 
-const {expect} = require('chai')
-const db = require('../index')
-const Products = db.model('products')
-const Orders = db.model('./orders')
-const User = db.model('user')
+// const {expect} = require('chai')
+// const db = require('../index')
+// const Products = db.model('products')
+// const Orders = db.model('./orders')
+// const User = db.model('user')
 
-describe('Products model', () => {
-  beforeEach(() => db.sync({force: true}))
+// describe('Products model', () => {
+//   beforeEach(() => db.sync({force: true}))
 
-  describe('column definitions and validations', () => {
-    it('has a `title`, `description`, and `price`', async () => {
-      const item = await Products.create({
-        title: 'gold hoop earrings',
-        description: 'quintessential closet item',
-        price: 49.99
-      })
+//   describe('column definitions and validations', () => {
+//     it('has a `title`, `description`, and `price`', async () => {
+//       const item = await Products.create({
+//         title: 'gold hoop earrings',
+//         description: 'quintessential closet item',
+//         price: 49.99
+//       })
 
-      expect(item.title).to.equal('gold hoop earrings')
-      expect(item.description).to.equal('quintessential closet item')
-      expect(item.price).to.equal(49.99)
-    })
+//       expect(item.title).to.equal('gold hoop earrings')
+//       expect(item.description).to.equal('quintessential closet item')
+//       expect(item.price).to.equal(49.99)
+//     })
 
-    it('`title` is required', () => {
-      const product = Products.build()
-      return product.validate().then(
-        () => {
-          throw new Error('Validation should have failed!')
-        },
-        err => {
-          expect(err).to.be.an('error')
-        }
-      )
-    })
+//     it('`title` is required', () => {
+//       const product = Products.build()
+//       return product.validate().then(
+//         () => {
+//           throw new Error('Validation should have failed!')
+//         },
+//         err => {
+//           expect(err).to.be.an('error')
+//         }
+//       )
+//     })
 
-    it('`imageUrl` has a default value', async () => {
-      const item = await Products.create({
-        title: 'abc',
-        description: 'xyz',
-        price: 99.99
-      })
-      expect(item.imageUrl).to.equal(
-        'https://www.cartridge.co.za/wp-content/uploads/woocommerce-placeholder.png'
-      )
-    })
+//     it('`imageUrl` has a default value', async () => {
+//       const item = await Products.create({
+//         title: 'abc',
+//         description: 'xyz',
+//         price: 99.99
+//       })
+//       expect(item.imageUrl).to.equal(
+//         'https://www.cartridge.co.za/wp-content/uploads/woocommerce-placeholder.png'
+//       )
+//     })
 
-    // associations
-    it('has manually set one-many relationship with Orders', async () => {
-      const newProduct = await Products.create({
-        title: 'sparkly',
-        description: 'shiny',
-        price: 999.99
-      })
-      const newUser = await User.create({
-        email: 'teressa@gmail.com',
-        password: 'teresssssssa'
-      })
-      const newOrder = await Orders.create({
-        productId: newProduct.id,
-        userId: newUser.id
-      })
+//     // associations
+//     it('has manually set one-many relationship with Orders', async () => {
+//       const newProduct = await Products.create({
+//         title: 'sparkly',
+//         description: 'shiny',
+//         price: 999.99
+//       })
+//       const newUser = await User.create({
+//         email: 'teressa@gmail.com',
+//         password: 'teresssssssa'
+//       })
+//       const newOrder = await Orders.create({
+//         productId: newProduct.id,
+//         userId: newUser.id
+//       })
 
-      await newOrder.getUserId({
-        where: {
-          email: 'teressa@gmail.com',
-          status: 'open'
-        }
-      })
-      //double check with yulia to see if there is a way to test manually set
-      //or check to see that there is NO default foreign key that is set here
+//       await newOrder.getUserId({
+//         where: {
+//           email: 'teressa@gmail.com',
+//           status: 'open'
+//         }
+//       })
+//       //double check with yulia to see if there is a way to test manually set
+//       //or check to see that there is NO default foreign key that is set here
 
-      expect(newOrder.userId).to.be.equal(newUser.id)
-    })
+//       expect(newOrder.userId).to.be.equal(newUser.id)
+//     })
 
-    it('`status` has a default value', async () => {
-      const newItem = await Orders.create({
-        productId: 3,
-        userId: 2
-      })
-      expect(newItem.status).to.equal('open')
-    })
+//     it('`status` has a default value', async () => {
+//       const newItem = await Orders.create({
+//         productId: 3,
+//         userId: 2
+//       })
+//       expect(newItem.status).to.equal('open')
+//     })
 
-    // // Make sure that you define the associations in `server/models/index.js`!
-    // // Note: be careful - the pluralization is important here!
-    // it('has a many-many relationship with other Pugs as `friends`', async () => {
-    //   const penny = await Pug.create({name: 'Penny'})
-    //   const doug = await Pug.create({name: 'Doug'})
-    //   await penny.addFriend(doug)
-    //   const friends = await penny.getFriends()
-    //   expect(friends).to.be.an('array')
-    //   expect(friends.length).to.equal(1)
-    //   expect(friends[0].name).to.equal('Doug')
-  })
-})
+// // Make sure that you define the associations in `server/models/index.js`!
+// // Note: be careful - the pluralization is important here!
+// it('has a many-many relationship with other Pugs as `friends`', async () => {
+//   const penny = await Pug.create({name: 'Penny'})
+//   const doug = await Pug.create({name: 'Doug'})
+//   await penny.addFriend(doug)
+//   const friends = await penny.getFriends()
+//   expect(friends).to.be.an('array')
+//   expect(friends.length).to.equal(1)
+//   expect(friends[0].name).to.equal('Doug')
+//   })
+// })
 
 //   describe('instance method: isPuppy', () => {
 //     it('returns true if a pug is a puppy (less than one year old)', async () => {
