@@ -5,7 +5,6 @@ import store from './index'
 
 const ADD_TO_CART = 'ADD_TO_CART'
 const REMOVE_ITEM = 'REMOVE_ITEM'
-const CLEAR_CART = 'CLEAR_CART'
 const UPDATE_CART = 'UPDATE_CART'
 const OPEN_ORDERS_USER = 'OPEN_ORDERS_USER'
 
@@ -23,7 +22,10 @@ export const removeItem = product => ({
   product
 })
 
-export const clearCart = () => ({type: CLEAR_CART})
+export const removeOneFromState = product => ({
+  type: REMOVE_ONE,
+  product
+})
 
 export const updateCart = product => ({type: UPDATE_CART, product})
 
@@ -86,8 +88,6 @@ export default function(state = initialState, action) {
         ...state,
         cart: state.cart.filter(order => order.id !== action.product.id)
       }
-    case CLEAR_CART:
-      return {...state, cart: []}
     case UPDATE_CART:
       return {...state, cart: []}
     case OPEN_ORDERS_USER:
