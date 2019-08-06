@@ -5,10 +5,8 @@ import store from './index'
 
 const ADD_TO_CART = 'ADD_TO_CART'
 const REMOVE_ITEM = 'REMOVE_ITEM'
-const CLEAR_CART = 'CLEAR_CART'
 const UPDATE_CART = 'UPDATE_CART'
 const OPEN_ORDERS_USER = 'OPEN_ORDERS_USER'
-const REMOVE_ONE = 'REMOVE_ONE'
 
 //// INITIAL STATE
 const initialState = {
@@ -29,8 +27,6 @@ export const removeOneFromState = product => ({
   product
 })
 
-export const clearCart = () => ({type: CLEAR_CART})
-
 export const updateCart = product => ({type: UPDATE_CART, product})
 
 export const getAllOpenUser = products => ({type: OPEN_ORDERS_USER, products})
@@ -48,12 +44,8 @@ export const addToOrder = product => async dispatch => {
 //deleting product to orders table
 export const deleteItems = order => async dispatch => {
   try {
-    if (order.id) {
-      const {data} = await axios.delete(`/api/orders/${order.id}`)
-      dispatch(removeItem(data))
-    } else {
-      dispatch(removeItem(order))
-    }
+    const {data} = await axios.delete(`/api/orders/${order.id}`, order)
+    dispatch(removeItem(data))
   } catch (error) {
     console.error(error)
   }
@@ -85,25 +77,21 @@ export default function(state = initialState, action) {
     case ADD_TO_CART:
       return {...state, cart: [...state.cart, action.product]}
     case REMOVE_ITEM:
-      return {
-        ...state,
-        cart: state.cart.filter(order => order.id !== action.order.id)
-      }
-    case CLEAR_CART:
-      return {...state, cart: []}
-    case UPDATE_CART:
-      return {...state, cart: []}
-    case OPEN_ORDERS_USER:
-      return {...state, cart: action.products}
-    case REMOVE_ONE:
       removeOne = state.cart.findIndex(item => item.id === action.product.id)
-      console.log('u made it here', removeOne)
       if (removeOne > -1) {
         return {
           ...state,
           cart: state.cart.filter((order, i) => i !== removeOne)
         }
       }
+      return {
+        ...state,
+        cart: state.cart.filter(order => order.id !== action.product.id)
+      }
+    case UPDATE_CART:
+      return {...state, cart: []}
+    case OPEN_ORDERS_USER:
+      return {...state, cart: action.products}
     default:
       return state
   }

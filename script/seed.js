@@ -17,67 +17,72 @@ async function seed() {
       title: 'Claire custom name plate',
       description: 'Use name plate as ring or necklace pendant',
       imageUrl: 'https://i.imgur.com/zuiYfUM.jpg',
-      price: 99.99
+      price: 9999
     }),
     Products.create({
       title: 'Yulia custom name plate',
       description: 'Use name plate as ring or necklace pendant',
       imageUrl: 'https://i.imgur.com/GVzEurd.jpg',
-      price: 99.99
+      price: 9999
     }),
     Products.create({
       title: 'Teressa custom name plate',
       description: 'Use name plate as ring or necklace pendant',
       imageUrl: 'https://i.imgur.com/ylmsp5j.jpg',
-      price: 99.99
+      price: 9999
     }),
     Products.create({
       title: 'Letter A Earring Stud',
       description:
         'Sans-serif letter A available in rose gold, yellow gold, and sterling silver',
       imageUrl: 'https://i.imgur.com/Lz0IPb9.jpg',
-      price: 89.99
+      price: 8999
     }),
     Products.create({
       title: 'Letter B Earring Stud',
       description:
         'Sans-serif letter B available in rose gold, yellow gold and sterling silver',
       imageUrl: 'https://i.imgur.com/tZBAHfV.jpg',
-      price: 89.99
+      price: 8999
     }),
     Products.create({
       title: 'Letter C Earring Stud',
       description:
         'Sans-serif letter C available in rose gold, yellow gold and sterling silver',
       imageUrl: 'https://i.imgur.com/DnawXsa.jpg',
-      price: 89.99
+      price: 8999
     }),
     Products.create({
       title: 'Letter X Earring Stud',
       description:
         'Serif letter X available in rose gold, yellow gold, and sterling silver',
       imageUrl: 'https://i.imgur.com/ggPCyTa.jpg',
-      price: 89.99
+      price: 8999
     }),
     Products.create({
       title: 'Letter Y Earring Stud',
       description:
         'Serif letter Y available in rose gold, yellow gold and sterling silver',
       imageUrl: 'https://i.imgur.com/B8JIhMw.jpg',
-      price: 89.99
+      price: 8999
     }),
     Products.create({
       title: 'Letter Z Earring Stud',
       description:
         'Serif letter Z available in rose gold, yellow gold and sterling silver',
       imageUrl: 'https://i.imgur.com/BRDOsh1.jpg',
-      price: 89.99
+      price: 8999
     })
   ])
 
   const orders = await Promise.all([
-    Orders.create({productId: 9, userId: '1'}),
-    Orders.create({productId: 3, userId: '2'})
+    Orders.create({
+      productId: 9,
+      userId: '1',
+      price: 9999,
+      title: 'test item'
+    }),
+    Orders.create({productId: 3, userId: '2', price: 9999, title: 'test item'})
   ])
 
   console.log(

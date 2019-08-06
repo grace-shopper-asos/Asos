@@ -7,12 +7,31 @@ const Orders = db.define('orders', {
     primaryKey: true,
     autoIncrement: true
   },
-  userId: Sequelize.INTEGER,
-  productId: Sequelize.INTEGER,
   status: {
     type: Sequelize.ENUM('open', 'closed'),
     allowNull: false,
     defaultValue: 'open'
+  },
+  userId: Sequelize.INTEGER,
+  productId: Sequelize.INTEGER,
+  price: {
+    type: Sequelize.INTEGER,
+    allowNull: false,
+    validate: {
+      notEmpty: true
+    }
+  },
+  title: {
+    type: Sequelize.STRING,
+    allowNull: false,
+    validate: {
+      notEmpty: true
+    }
+  },
+  imageUrl: {
+    type: Sequelize.STRING,
+    defaultValue:
+      'https://www.cartridge.co.za/wp-content/uploads/woocommerce-placeholder.png'
   }
 })
 
