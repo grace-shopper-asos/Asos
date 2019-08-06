@@ -50,7 +50,8 @@ router.post('/', async (req, res, next) => {
         userId: req.session.passport.user,
         productId: req.body.id,
         price: req.body.price,
-        title: req.body.title
+        title: req.body.title,
+        imageUrl: req.body.imageUrl
       })
       res.status(201).send(newOrder)
     }

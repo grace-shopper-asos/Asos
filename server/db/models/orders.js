@@ -27,6 +27,11 @@ const Orders = db.define('orders', {
     validate: {
       notEmpty: true
     }
+  },
+  imageUrl: {
+    type: Sequelize.STRING,
+    defaultValue:
+      'https://www.cartridge.co.za/wp-content/uploads/woocommerce-placeholder.png'
   }
 })
 
