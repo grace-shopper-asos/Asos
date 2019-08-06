@@ -178,3 +178,10 @@ form div {
   margin-right: 15px;
   margin-left: -20px;
 }
+
+.form-email {
+  margin: 0 auto;
+  display: block;
+  text-align: center;
+  max-width: 600px;
+}

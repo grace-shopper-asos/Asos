@@ -28,6 +28,11 @@ const Nav = props => {
               Shop
             </Link>
           </Navbar.Text>
+          <Navbar.Text className="nav-padding-right">
+            <Link className="nav-hover" to="/email">
+              Custom Jewelry
+            </Link>
+          </Navbar.Text>
           {!user.id ? (
             <div>
               <Navbar.Text className="nav-padding-right">
