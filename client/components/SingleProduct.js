@@ -31,7 +31,7 @@ class SingleProduct extends React.Component {
             </Col>
             <Col sm={6}>
               <div>{product.description}</div>
-              <div className="price">{product.price}</div>
+              <div className="price">${(product.price / 100).toFixed(2)}</div>
               <Button
                 className="uppercase button-login"
                 onClick={() => this.handleClick(product)}

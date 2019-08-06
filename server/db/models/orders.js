@@ -15,7 +15,7 @@ const Orders = db.define('orders', {
   userId: Sequelize.INTEGER,
   productId: Sequelize.INTEGER,
   price: {
-    type: Sequelize.DECIMAL(13, 2),
+    type: Sequelize.INTEGER,
     allowNull: false,
     validate: {
       notEmpty: true

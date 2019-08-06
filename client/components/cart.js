@@ -29,6 +29,15 @@ export class Cart extends Component {
     this.props.updateCartStatus(product)
   }
 
+  total(cart) {
+    let total = 0
+    for (let i = 0; i < cart.length; i++) {
+      let itemPrice = Number(cart[i].price)
+      total += itemPrice
+    }
+    return (total / 100).toFixed(2)
+  }
+
   render() {
     console.log('my props', this.props.cart.cart)
 
@@ -50,7 +59,7 @@ export class Cart extends Component {
                     <h1>{product.title}</h1>
                   </Col>
                   <Col sm={3} className="price">
-                    <h1>${product.price}</h1>
+                    <h1>${(product.price / 100).toFixed(2)}</h1>
                   </Col>
                   <Col sm={3} className="x">
                     <div className="center-button-submit">
@@ -68,6 +77,7 @@ export class Cart extends Component {
             </div>
           ))}
         </Row>
+        <h1>Total: ${this.total(this.props.cart.cart)}</h1>
         <div className="center-button-submit">
           {this.props.cart.cart.length ? (
             <Link to="/checkout">
