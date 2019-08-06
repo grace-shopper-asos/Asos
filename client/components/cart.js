@@ -2,8 +2,8 @@ import React, {Component} from 'react'
 import {Col, Row, Button} from 'react-bootstrap'
 import {connect} from 'react-redux'
 import {
-  removeOneFromState,
   deleteItems,
+  removeItem,
   updateCartStatus,
   getOpenOrders
 } from '../store/cart'
@@ -20,12 +20,9 @@ export class Cart extends Component {
     this.props.getOpenOrders()
   }
 
-  handleClick(products) {
-    this.props.deleteFromCart(products[0])
-  }
-
-  handleClickTest(product) {
-    this.props.removeOneFromState(product)
+  handleClick(product) {
+    this.props.removeItem(product)
+    this.props.deletingFromOrder(product)
   }
 
   handleClickUpdate(product) {
@@ -56,27 +53,15 @@ export class Cart extends Component {
                     <h1>${product.price}</h1>
                   </Col>
                   <Col sm={3} className="x">
-                    {product.orders ? (
-                      <div>
-                        <h1>quantity:{product.orders.length}</h1>
-                        <Button
-                          className="button"
-                          onClick={() => this.handleClick(product.orders)}
-                        >
-                          X
-                        </Button>
-                      </div>
-                    ) : (
-                      <div className="center-button-submit">
-                        <h1>quantity:1</h1>
-                        <Button
-                          className="button"
-                          onClick={() => this.handleClickTest(product)}
-                        >
-                          X
-                        </Button>
-                      </div>
-                    )}
+                    <div className="center-button-submit">
+                      <h1>quantity:1</h1>
+                      <Button
+                        className="button"
+                        onClick={() => this.handleClick(product)}
+                      >
+                        X
+                      </Button>
+                    </div>
                   </Col>>
                 </Row>
               </Col>
@@ -108,8 +93,8 @@ const mapState = state => {
 
 const mapDispatch = dispatch => {
   return {
-    removeOneFromState: product => dispatch(removeOneFromState(product)),
-    deleteFromCart: product => dispatch(deleteItems(product)),
+    deletingFromOrder: product => dispatch(deleteItems(product)),
+    removeItem: product => dispatch(removeItem(product)),
     updateCartStatus: product => dispatch(updateCartStatus(product)),
     getOpenOrders: () => dispatch(getOpenOrders())
   }

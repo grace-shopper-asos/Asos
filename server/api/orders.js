@@ -5,25 +5,41 @@ module.exports = router
 
 router.get('/', async (req, res, next) => {
   try {
-    // console.log('Passport', req.session)
-    const orders = await Products.findAll({
-      include: [
-        {
-          model: Orders,
-          where: {
-            userId: req.session.passport.user,
-            status: 'open'
-          },
-          attributes: ['id']
+    if (req.session && req.session.passport) {
+      const orders = await Orders.findAll({
+        where: {
+          userId: req.session.passport.user,
+          status: 'open'
         }
-      ]
-    })
-    console.log(orders)
-    res.status(201).send(orders)
+      })
+      res.status(201).send(orders)
+    }
   } catch (error) {
     next(error)
   }
 })
+
+// router.get('/', async (req, res, next) => {
+//   try {
+//     // console.log('Passport', req.session)
+//     const orders = await Products.findAll({
+//       include: [
+//         {
+//           model: Orders,
+//           where: {
+//             userId: req.session.passport.user,
+//             status: 'open'
+//           },
+//           attributes: ['id']
+//         }
+//       ]
+//     })
+//     console.log(orders)
+//     res.status(201).send(orders)
+//   } catch (error) {
+//     next(error)
+//   }
+// })
 
 //route to create a new order for logged in user in orders table
 router.post('/', async (req, res, next) => {
@@ -33,7 +49,8 @@ router.post('/', async (req, res, next) => {
       const newOrder = await Orders.create({
         userId: req.session.passport.user,
         productId: req.body.id,
-        status: 'open'
+        price: req.body.price,
+        title: req.body.title
       })
       res.status(201).send(newOrder)
     }
