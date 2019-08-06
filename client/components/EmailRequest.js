@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import {Col, Form, FormGroup, Input, Label, Button} from 'reactstrap'
 import axios from 'axios'
+import {Link} from 'react-router-dom'
 
 class EmailRequest extends Component {
   constructor() {
@@ -66,7 +67,9 @@ class EmailRequest extends Component {
               />
             </Col>
           </FormGroup>
-          <Button>Submit</Button>
+          <Link to="/thankyou">
+            <Button>Submit</Button>
+          </Link>
         </Form>
       </div>
     )

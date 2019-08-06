@@ -14,6 +14,7 @@ import {
 } from './components' //UserHome
 // import {Login, Signup, Home, Cart} from './components' //UserHome
 import {me} from './store'
+import thankyou from './components/thankyou'
 
 /**
  * COMPONENT
@@ -39,6 +40,7 @@ class Routes extends Component {
         <Route exact path="/products" />
         <Route path="/cart" component={Cart} />
         <Route path="/email" component={EmailRequest} />
+        <Route path="/thankyou" component={thankyou} />
         {isLoggedIn && (
           <Switch>
             {/* Routes placed here are only available after logging in */}
