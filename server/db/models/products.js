@@ -22,7 +22,7 @@ const Products = db.define('products', {
       'https://www.cartridge.co.za/wp-content/uploads/woocommerce-placeholder.png'
   },
   price: {
-    type: Sequelize.DECIMAL(13, 2),
+    type: Sequelize.INTEGER,
     allowNull: false,
     validate: {
       notEmpty: true
