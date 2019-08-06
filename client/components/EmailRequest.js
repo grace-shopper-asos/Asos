@@ -67,9 +67,7 @@ class EmailRequest extends Component {
               />
             </Col>
           </FormGroup>
-          <Link to="/thankyou">
-            <Button>Submit</Button>
-          </Link>
+          <Button>Submit</Button>
         </Form>
       </div>
     )
