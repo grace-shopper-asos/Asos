@@ -1,7 +1,6 @@
 import React, {Component} from 'react'
 import {Col, Form, FormGroup, Input, Label, Button} from 'reactstrap'
 import axios from 'axios'
-import {Link} from 'react-router-dom'
 
 class EmailRequest extends Component {
   constructor() {
@@ -19,19 +18,16 @@ class EmailRequest extends Component {
     this.setState({[e.target.name]: e.target.value})
   }
 
-  async handleSubmit(e) {
+  handleSubmit = e => {
     e.preventDefault()
+    console.log('got here')
     const {name, email, message} = this.state
-    const form = await axios.post('/api/form', {
+    axios.post('/api/form', {
       name,
       email,
       message
     })
-    this.setState({
-      name: '',
-      email: '',
-      message: ''
-    })
+    this.props.history.push('/thankyou')
   }
 
   render() {
@@ -67,9 +63,7 @@ class EmailRequest extends Component {
               />
             </Col>
           </FormGroup>
-          <Link to="/thankyou">
-            <Button>Submit</Button>
-          </Link>
+          <Button>Submit</Button>
         </Form>
       </div>
     )
