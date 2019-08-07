@@ -28,4 +28,4 @@ deploy: # see README for details on these keys
   app: tcy-jewelry
   # the secure key indicates an encrypted value; see README
   api_key:
-    secure: g0fI2yEemuA/HsEcjCNI80EUGEG/X2N17gzArpP5jrjF+9iNvTCGOBimcpyCroLZmyo3Keg6SSEc/ZApjtYos3ALmOINCfyQkCyXGYkQqszs2xblaxixQmWi94us14gbTLxAciPyP/7EbFq24lN9oXc2Hw+b5/KI6ec6iYQ98FPZcFOmo/bbK29fl+ggAvSSBXBp0Gq/lJmRECcfx3Jt2bDDvknt2Qh/rJzH1oLchn5ujeV7ZLT7RMdwM4fRJhzhtrCcThAQqG6TgnCKXt5s0KeURJ8UI9D2rkjBXDmFGN9nAksTwYJgoraP3zo1QkxibDbAWuDSYvB1jkNLjRjWrctyOE4/waP26w/yoOOfttA0ujWZ8SgeNh8tbJ4E/napZx2hrh0VcYABWBG+tO7GmYSPBk2gi1jrlk/tCkhK9huKH4BdZQTIPQgGm0H8+iuBTDvGZZpbhF0aTKGukQUI6KYZIzQIxWPSBRMtUC0zOcfxYJibw0xbWjzuUWr1MeBtzRGuSD35HlIapX7xoFc1+/XpWAKZ744BwlY7+lCfmgBKaOPBb4yu4vzHKipIbtkNiS0TDfJuQWrXazv1ByocwObYTMH7PakH8F4ejUMBxJ/KSPXFqmYb5WpgBIF+RvJiCRh4XgMV9V5MIJ0JFA8qpTTZ9tHtGbT425wTUwalOoY=
+    secure: 853a9be5-66f8-4ff8-9fb8-359e67d3b308
